@@ -38,8 +38,33 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
-}
+    let result = '';
+    let tenSymbols, twoSymbols = '';
+
+    for (let i = 0; i < expr.length; i += 10) {
+        tenSymbols = expr.slice(i, i + 10);
+        tenSymbols = tenSymbols.padStart(10, '0');
+
+        if (tenSymbols == '**********') {
+            result += ' ';
+        } else {
+
+            for (let i = 0; i < 10; i += 2) {
+
+                if (tenSymbols.slice(i, i + 2) == '10') {
+                    twoSymbols += '.';
+                }
+
+                else if (tenSymbols.slice(i, i + 2) == '11') {
+                    twoSymbols += '-';
+                }
+            }
+            result += MORSE_TABLE[twoSymbols];
+            twoSymbols = '';
+        } 
+    } 
+    return result; 
+} 
 
 module.exports = {
     decode
